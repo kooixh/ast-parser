@@ -1,10 +1,15 @@
 package com.kooixiuhong.astparser.api.parser.constants;
 
+import com.kooixiuhong.astparser.api.constants.APIConstant;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 public class ParserConstants {
+
+
+    public static final String PARSE_PATH = APIConstant.BASE_PATH + "/parser/parse";
 
 
     private static final Character[] META_CHAR_ARR = { ')', '(', '[', ']', '{', '}', '\\', '^', '$', '|', '?', '*', '+',  '.', '<',

@@ -6,13 +6,14 @@ import com.kooixiuhong.astparser.api.parser.dtos.syntaxtree.ASTNode;
 import com.kooixiuhong.astparser.api.parser.dtos.syntaxtree.BinaryOperator;
 import com.kooixiuhong.astparser.api.parser.dtos.syntaxtree.Operator;
 import com.kooixiuhong.astparser.api.parser.services.ParsingService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-
+@Service
 public class ParsingServiceImpl implements ParsingService {
 
     private static final String OPENING_PAR = "(";
@@ -166,9 +167,10 @@ public class ParsingServiceImpl implements ParsingService {
             if (ops.containsKey(token)) {
                 Operator operator = ops.get(token);
                 if (operator instanceof BinaryOperator) {
-                    return !(i == 0 || i == tokens.length - 1 || ops.containsKey(tokens[i - 1]) ||
+                    if (i == 0 || i == tokens.length - 1 || ops.containsKey(tokens[i - 1]) ||
                             tokens[i - 1].equals("(") || tokens[i + 1].equals(")") ||
-                            (ops.containsKey(tokens[i + 1]) && ops.get(tokens[i + 1]) instanceof BinaryOperator));
+                            (ops.containsKey(tokens[i + 1]) && ops.get(tokens[i + 1]) instanceof BinaryOperator))
+                        return false;
 
                 }
             }
