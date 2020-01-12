@@ -1,5 +1,6 @@
 package com.kooixiuhong.astparser.api.parser.services.implementations;
 
+import com.kooixiuhong.astparser.api.exceptions.ErrorCodes;
 import com.kooixiuhong.astparser.api.exceptions.ParseException;
 import com.kooixiuhong.astparser.api.parser.constants.ParserConstants;
 import com.kooixiuhong.astparser.api.parser.dtos.syntaxtree.ASTNode;
@@ -8,7 +9,6 @@ import com.kooixiuhong.astparser.api.parser.dtos.syntaxtree.Operator;
 import com.kooixiuhong.astparser.api.parser.services.ParsingService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -29,10 +29,10 @@ public class ParsingServiceImpl implements ParsingService {
         String[] tokens = this.tokenize(expression, operators);
 
         if (containsReserveWords(operators.keySet()))
-            throw new ParseException("Invalid operators, operators has reserved words.");
+            throw new ParseException(ErrorCodes.INVALID_OPERATOR_SYMBOL, "Invalid operators, operators has reserved words.");
 
         if (!verifyTerm(tokens, operators))
-            throw new ParseException("Syntax Error");
+            throw new ParseException(ErrorCodes.SYNTAX_ERROR, "Syntax Error");
 
 
         for (String token : tokens) {
@@ -50,7 +50,7 @@ public class ParsingServiceImpl implements ParsingService {
                     }
                 }
                 if (!foundOpen)
-                    throw new ParseException("Mismatch parenthesis");
+                    throw new ParseException(ErrorCodes.SYNTAX_ERROR, "Mismatch parenthesis");
             } else {
                 if (operators.containsKey(token)) {
 
@@ -81,7 +81,7 @@ public class ParsingServiceImpl implements ParsingService {
             String currentOp = operatorStack.pop();
             //there should be no parenthesis left
             if (currentOp.equals(OPENING_PAR))
-                throw new ParseException("Mismatch parenthesis");
+                throw new ParseException(ErrorCodes.SYNTAX_ERROR, "Mismatch parenthesis");
             addNodeToStack(nodes, currentOp, operators);
         }
 
@@ -128,7 +128,7 @@ public class ParsingServiceImpl implements ParsingService {
      */
     private void addNodeToStack(Stack<ASTNode> nodes, String opNode, Map<String, Operator> ops) {
         if (!ops.containsKey(opNode)) {
-            throw new ParseException("Trying to assign child to non operator node");
+            throw new ParseException(ErrorCodes.PARSE_ERROR, "Trying to assign child to non operator node");
         }
 
         ASTNode right = null;
