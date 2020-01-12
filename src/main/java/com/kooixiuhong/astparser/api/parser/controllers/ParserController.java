@@ -40,7 +40,9 @@ public class ParserController {
 
     private static final Logger logger = LoggerFactory.getLogger(ParserController.class);
 
-    @ApiOperation(value = "parse expression and operators", notes = "Create an abstract syntax tree for an expression using a set of operators")
+    @ApiOperation(value = "parse expression and operators", notes = "" +
+            "Create an abstract syntax tree for an expression using a set of operators. Provide the symbol, precedence and type of the operators (Unary or binary)." +
+            "Return value is an Abstract Syntax Tree in JSON form. Operator cannot be ( or ) as they are reserved to override precedence (Like in mathematics)")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = SwaggerParseResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = ErrorResponse.class),

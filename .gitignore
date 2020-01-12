@@ -38,3 +38,7 @@ build/
 ### Class Files ###
 target/
 *.class
+
+
+### Deployment files ###
+deployment/

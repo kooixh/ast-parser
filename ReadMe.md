@@ -16,6 +16,70 @@ No external parsing tool needed.
 
 ### `make run` to run it
 
+
+## Sample API Input 
+
+### POST `/api/parser/parse`
+
+**Request**
+```json
+{
+	"expression": "(x+y)*z",
+	"operators": [
+		{
+			"symbol": "+",
+			"precedence": 1,
+			"type": "binary"
+		},
+		{
+			"symbol": "-",
+			"precedence": 1,
+			"type": "binary"
+		},
+		{
+			"symbol": "*",
+			"precedence": 2,
+			"type": "binary"
+		},
+		{
+			"symbol": "/",
+			"precedence": 2,
+			"type": "binary"
+		}
+	]
+}
+```
+
+
+**Response**
+
+```json
+{
+    "status": "success",
+    "root": {
+        "value": "*",
+        "left": {
+            "value": "+",
+            "left": {
+                "value": "x",
+                "left": null,
+                "right": null
+            },
+            "right": {
+                "value": "y",
+                "left": null,
+                "right": null
+            }
+        },
+        "right": {
+            "value": "z",
+            "left": null,
+            "right": null
+        }
+    }
+}
+```
+
 ## References
 
 - [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree)

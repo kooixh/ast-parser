@@ -20,7 +20,13 @@ public class AstParserApplication {
 	}
 
 	@Bean
-	RouterFunction<ServerResponse> routerFunction() {
+	RouterFunction<ServerResponse> routeHomeToDocs() {
+		return route(GET("/"), req ->
+				ServerResponse.temporaryRedirect(URI.create("swagger-ui.html")).build());
+	}
+
+	@Bean
+	RouterFunction<ServerResponse> routerToDocs() {
 		return route(GET("/api-docs"), req ->
 				ServerResponse.temporaryRedirect(URI.create("swagger-ui.html")).build());
 	}
