@@ -84,4 +84,4 @@ No external parsing tool needed.
 
 - [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree)
 - [Shunting Yard Algorithm](https://en.wikipedia.org/wiki/Shunting-yard_algorithm)
-- [Chapter 5 of this dissertation](https://kooixiuhong.com/projects/assets/otherAssets/Dissertation.pdf)
+- [Chapter 5 of this dissertation](https://kooixiuhong.com/projects/rewrite)
